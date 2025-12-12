@@ -1,5 +1,5 @@
-const express = require("express");
-const mongoose = require("mongoose");
+const express = require('express');
+const mongoose = require('mongoose');
 
 const artworkSchema = mongoose.Schema({
 
@@ -26,7 +26,7 @@ const artworkSchema = mongoose.Schema({
     },
     
     likes: [{
-        typeof:mongoose.Schema.Types.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref: "User"
     }],
 

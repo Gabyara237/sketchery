@@ -1,5 +1,16 @@
-const express = require('express');
 const mongoose = require('mongoose');
+
+
+const ART_TYPES=[
+
+    "Digital Art",
+    "Painting",
+    "Drawing",
+    "Illustration",
+    "Photography",
+    "Sculpture",
+    "Mixed Media"
+];
 
 const artworkSchema = mongoose.Schema({
 
@@ -17,6 +28,7 @@ const artworkSchema = mongoose.Schema({
     artType: {
         type:String,
         required: true,
+        enum:ART_TYPES
     },
 
     
@@ -30,7 +42,7 @@ const artworkSchema = mongoose.Schema({
         ref: "User"
     }],
 
-    comments: {
+    comments: [{
         owner:{
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
@@ -40,15 +52,21 @@ const artworkSchema = mongoose.Schema({
             required: true,
         },
 
-        createdAt: Date,
-    },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+        },
+    }],
     
     description: String,
 
-    createdAt: Date,
+    createdAt: {
+            type: Date,
+            default: Date.now,
+    },
 
 });
 
 const Artwork = mongoose.model('Artwork', artworkSchema);
 
-module.exports = Artwork;
+module.exports = {Artwork, ART_TYPES};

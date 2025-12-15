@@ -46,4 +46,20 @@ router.get('/:artworkId', async (req,res) => {
     
 })
 
+router.post('/:artworkId', async (req,res) =>{
+    try{
+        const artwork = await Artwork.findById(req.params.artworkId);
+        if(artwork.owner.equals(req.session.user._id)){
+            await Artwork.deleteOne({_id: artwork._id});
+            return res.redirect('/artworks');
+        }else{
+            return res.redirect('/');
+        }
+        
+    }catch (error){
+        console.log(error);
+        res.redirect('/')
+    }
+})
+
 module.exports = router;

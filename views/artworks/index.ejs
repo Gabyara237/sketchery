@@ -19,6 +19,9 @@
         <ul>
             <%artworks.forEach((artwork)=>{%>
                 <li><a href="artworks/<%=artwork._id%>"><%=artwork.title%></a></li>
+                <form action="/artworks/<%=artwork._id%>?method=DELETE" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
             <%})%>
         </ul>
     <%}%>

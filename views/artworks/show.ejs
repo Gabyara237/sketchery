@@ -11,5 +11,9 @@
     <p><%=artwork.artType%></p>
     <p><%=artwork.description%></p>
 
+    <form action="/:artworkId?method=DELETE" method="POST">
+        <button type="submit">Delete</button>
+    </form>
+
 </body>
 </html>

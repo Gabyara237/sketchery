@@ -9,8 +9,18 @@
     <%- include('../partials/_navbar.ejs') %>
 
     <h1>Welcome to My Artworks</h1>
-
-    <a href="/artworks/new"> Add New Artwork</a>
     
+    <a href="/artworks/new"> Add New Artwork</a>
+    <%if(artworks.length === 0){%>
+    
+        <p>You have not created any artwork yet</p>
+
+    <%}else{%>
+        <ul>
+            <%artworks.forEach((artwork)=>{%>
+                <li><%=artwork.title%></li>
+            <%})%>
+        </ul>
+    <%}%>
 </body>
 </html>

@@ -19,10 +19,12 @@
         <ul>
             <%artworks.forEach((artwork)=>{%>
                 <li><a href="artworks/<%=artwork._id%>"><%=artwork.title%></a></li>
-                <a href="/artworks/<%=artwork._id%>/edit">Edit Artwork</a>
-                <form action="/artworks/<%=artwork._id%>?method=DELETE" method="POST">
-                    <button type="submit">Delete Artwork</button>
-                </form>
+                <% if(artwork.owner.toString() === currentUser._id.toString()){%>
+                    <a href="/artworks/<%=artwork._id%>/edit">Edit Artwork</a>
+                    <form action="/artworks/<%=artwork._id%>?_method=DELETE" method="POST">
+                        <button type="submit">Delete Artwork</button>
+                    </form>
+                <%}%>
             <%})%>
         </ul>
     <%}%>

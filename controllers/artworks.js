@@ -8,6 +8,7 @@ router.get('/', async (req,res)=>{
     try{
         const allArtworks = await Artwork.find({owner:req.session.user._id});
         res.locals.artworks = allArtworks;
+        res.locals.currentUser = req.session.user;
         res.render('artworks/index.ejs');
     }catch (error){
         console.log(error);
@@ -38,6 +39,7 @@ router.get('/:artworkId', async (req,res) => {
     try{
         const artwork = await Artwork.findById(req.params.artworkId);
         res.locals.artwork = artwork;
+        res.locals.currentUser = req.session.user;
         res.render('artworks/show.ejs');
     }catch (error){
         console.log(error);

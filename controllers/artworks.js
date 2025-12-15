@@ -100,4 +100,23 @@ router.put('/:artworkId', async (req, res) => {
     }
 })
 
+router.post('/:artworkId/comment', async (req,res) =>{
+    try{
+        const artwork = await Artwork.findById(req.params.artworkId);
+        const comment = {
+            owner: req.session.user._id,
+            description: req.body.comment,
+        }
+
+        artwork.comments.push(comment)
+        await artwork.save();
+        res.redirect(`/artworks/${artwork._id}`);
+
+    }catch (error){ 
+        console.log(error);
+        res.redirect('/');
+    }
+})
+
+
 module.exports = router;

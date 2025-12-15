@@ -11,6 +11,7 @@
     <img src ="<%=artwork.imageUrl%>">
     <p><%=artwork.artType%></p>
     <p><%=artwork.description%></p>
+
     
     <% if(artwork.owner.toString() === currentUser._id.toString()){%>
         <a href="/artworks/<%=artwork._id%>/edit">Edit Artwork</a>
@@ -18,6 +19,16 @@
             <button type="submit">Delete</button>
         </form>
     <%}%>
+        
+    <div>
+        <form action="/artworks/<%=artwork._id%>/comment" method="POST">
+            <label for="comment">Share your comment</label>
+            <textarea name="comment" id="comment" required></textarea>
+            <button type="submit">Create comment</button>
+
+        </form>
+        
+    </div>
 
 </body>
 </html>

@@ -6,11 +6,13 @@
     <title><%=artwork.title%></title>
 </head>
 <body>
+    <%- include('../partials/_navbar.ejs') %>
     <h2><%=artwork.title%></h2>
     <img src ="<%=artwork.imageUrl%>">
     <p><%=artwork.artType%></p>
     <p><%=artwork.description%></p>
-
+    
+    <a href="/artworks/<%=artwork._id%>/edit">Edit Artwork</a>
     <form action="/:artworkId?method=DELETE" method="POST">
         <button type="submit">Delete</button>
     </form>

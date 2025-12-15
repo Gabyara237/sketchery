@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit <%=artwork.title%></title>
+</head>
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h1> Edit <%=artwork.title%> </h1>
+
+    <form action="/artworks/<%=artwork._id%>?_method=PUT" method="POST">
+
+        <label for="title">Artwork Title:</label>
+        <input name="title" id="title" value="<%=artwork.title%>" required>
+
+        <label for="imageUrl">ArtWork Imagen URL:</label>
+        <input name="imageUrl" id="imageUrl" value="<%=artwork.imageUrl%>" required>
+        
+        <label for="artType"> Artwork Type:</label>
+        <select name="artType" id="artType" >
+            <%ART_TYPES.forEach((type) =>{%>
+                <option 
+                    value="<%=type%>"
+                    <%=type === artwork.artType ? 'selected': ''%> > 
+                    
+                    <%=type%>
+                
+                </option>
+            <%})%>
+
+        </select>
+
+        <label for= "description">ArtWork Description:</label>
+        <textarea name="description" id="description"><%=artwork.description%></textarea>
+
+        <button type="submit"> Edit Artwork</button>
+
+    </form>
+    
+</body>
+</html>

@@ -46,7 +46,7 @@ router.get('/:artworkId', async (req,res) => {
     
 })
 
-router.post('/:artworkId', async (req,res) =>{
+router.delete('/:artworkId', async (req,res) =>{
     try{
         const artwork = await Artwork.findById(req.params.artworkId);
         if(artwork.owner.equals(req.session.user._id)){
@@ -59,6 +59,42 @@ router.post('/:artworkId', async (req,res) =>{
     }catch (error){
         console.log(error);
         res.redirect('/')
+    }
+})
+
+
+router.get('/:artworkId/edit', async (req, res) =>{
+    try{
+        const artwork = await Artwork.findById(req.params.artworkId);
+        if(artwork.owner.equals(req.session.user._id)){
+            
+            return res.render('artworks/edit.ejs', {artwork, ART_TYPES});
+
+        }else{
+            return res.redirect('/')
+        }
+    }catch (error) {
+        console.log(error)
+        res.redirect('/')
+
+    }
+})
+
+router.put('/:artworkId', async (req, res) => {
+    try{
+        const artwork = await Artwork.findById(req.params.artworkId);
+
+        if(artwork.owner.equals(req.session.user._id)){
+            artwork.set(req.body);
+            await artwork.save();
+            return res.redirect(`/artworks/${artwork._id}`);
+
+        }else{
+            return res.redirect('/');
+        }
+    }catch (error){
+        console.log(error);
+        res.redirect('/');
     }
 })
 

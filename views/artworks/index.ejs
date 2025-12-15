@@ -18,7 +18,7 @@
     <%}else{%>
         <ul>
             <%artworks.forEach((artwork)=>{%>
-                <li><%=artwork.title%></li>
+                <li><a href="artworks/<%=artwork._id%>"><%=artwork.title%></a></li>
             <%})%>
         </ul>
     <%}%>

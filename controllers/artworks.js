@@ -34,4 +34,16 @@ router.post('/', async (req,res) =>{
     }
 })
 
+router.get('/:artworkId', async (req,res) => {
+    try{
+        const artwork = await Artwork.findById(req.params.artworkId);
+        res.locals.artwork = artwork;
+        res.render('artworks/show.ejs');
+    }catch (error){
+        console.log(error);
+        res.redirect('/');
+    }
+    
+})
+
 module.exports = router;

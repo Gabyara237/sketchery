@@ -65,7 +65,7 @@ router.get('/:artworkId', async (req,res) => {
         const artwork = await Artwork.findById(req.params.artworkId).populate('comments.owner');
         
         res.locals.artwork = artwork;
-        const editComment = req.query.editcomment || null;
+        const editComment = req.query.editComment || null;
 
             
         return res.render('artworks/show.ejs', {timeAgo, editComment});
@@ -167,7 +167,25 @@ router.delete('/:artworkId/comment/:commentId', async (req, res)=>{
 
 })
 
-router.get('/:artworkId/commet/:commentId/edit', async (req, res) =>{
+router.put('/:artworkId/comment/:commentId', async (req, res) =>{
+    try{
+        const artwork = await Artwork.findById(req.params.artworkId);
+        const comment = artwork.comments.id(req.params.commentId); 
+        
+        if(comment.owner.equals(req.session.user._id)){
+            
+            comment.description = req.body.comment;
+            await artwork.save();
+            return res.redirect(`/artworks/${artwork._id}`)
+        }else{
+            return res.redirect('/')
+        }
+
+    }catch (error){
+        console.log(error);
+        res.redirect('/')
+
+    }
 
 })
 

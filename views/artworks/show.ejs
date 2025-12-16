@@ -38,7 +38,7 @@
                 <p><%=timeAgo(comment.createdAt)%></p>
                 <%if(editComment && editComment === comment._id.toString() && comment.owner._id.toString()=== user._id){%>
                     <form action="/artworks/<%=artwork._id%>/comment/<%=comment._id%>?_method=PUT" method="POST">
-                        <textarea name =comment required> <%=comment.description%></textarea>
+                        <textarea name="comment" required> <%=comment.description%></textarea>
                         <button type="submit">Save</button>
                     </form>
                 <%}else{%>

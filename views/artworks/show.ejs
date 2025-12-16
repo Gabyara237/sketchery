@@ -13,7 +13,7 @@
     <p><%=artwork.description%></p>
 
     
-    <% if(artwork.owner.toString() === currentUser._id.toString()){%>
+    <% if(artwork.owner.toString() === user._id.toString()){%>
         <a href="/artworks/<%=artwork._id%>/edit">Edit Artwork</a>
         <form action="/artworks/<%=artwork._id%>?_method=DELETE" method="POST">
             <button type="submit">Delete</button>
@@ -37,6 +37,12 @@
                 <h3><%=comment.owner.username%></h3>
                 <p><%=timeAgo(comment.createdAt)%></p>
                 <p><%=comment.description%></p>
+                <%if(comment.owner._id.toString() === user._id.toString()){%>
+                    <form action="/artworks/<%=artwork._id%>/comment/<%=comment._id%>?_method=DELETE" method="POST">
+
+                        <button type="submit" > Delete</button>
+                    </form>
+                <%}%>
             <%})%>  
         <%}%>
     </div>

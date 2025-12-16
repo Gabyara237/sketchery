@@ -64,7 +64,7 @@ router.get('/:artworkId', async (req,res) => {
     try{
         const artwork = await Artwork.findById(req.params.artworkId).populate('comments.owner');
         res.locals.artwork = artwork;
-        res.locals.currentUser = req.session.user;
+        
         res.render('artworks/show.ejs', {timeAgo});
     }catch (error){
         console.log(error);
@@ -143,5 +143,24 @@ router.post('/:artworkId/comment', async (req,res) =>{
     }
 })
 
+router.delete('/:artworkId/comment/:commentId', async (req, res)=>{
+    try{
+        const artwork = await Artwork.findById(req.params.artworkId).populate('comments.owner');
+        const comment = artwork.comments.id(req.params.commentId);
+        if( comment.owner.equals(req.session.user._id)){
+            comment.deleteOne();
+            await artwork.save();
+            return res.redirect(`/artworks/${req.params.artworkId}`)
+    
+        }else{
+            return res.redirect('/')
+        }
+        
+    }catch (error){
+        console.log(error)
+        res.redirect('/')
+    }
+
+})
 
 module.exports = router;

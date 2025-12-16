@@ -80,6 +80,7 @@ router.get('/:artworkId', async (req,res) => {
 router.delete('/:artworkId', async (req,res) =>{
     try{
         const artwork = await Artwork.findById(req.params.artworkId);
+        
         if(artwork.owner.equals(req.session.user._id)){
             await Artwork.deleteOne({_id: artwork._id});
             return res.redirect('/artworks');

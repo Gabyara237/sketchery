@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=userProfile.username%></title>
+</head>
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h3><%=userProfile.username%></h3>
+
+    <%if(allArtworks.length===0){%>
+        <p>This user has not yet published any artwork.</p>
+    <%}else{%>
+        <%allArtworks.forEach((artwork)=>{%>
+            <div>
+                <img src="<%=artwork.imageUrl%>">
+                <p><%=artwork.comments.length%> comments</p>
+            </div>
+
+        <%})%>
+
+    <%}%>
+</body>
+</html>

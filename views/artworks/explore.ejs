@@ -6,6 +6,7 @@
     <title>Explore</title>
 </head>
 <body>
+    <%- include('../partials/_navbar.ejs') %>
     <h1>Explore the artwork of our community </h1>
     <%if(allUserArtworks.length === 0){%>
         <p>There are no artworks yet, be the first to share your artwork</p>
@@ -14,7 +15,7 @@
         <%allUserArtworks.forEach((artwork)=>{%>
             <div>
                 <img src="<%=artwork.imageUrl%>">
-                <p><%=artwork.owner.username%></p>
+                <a href="/users/<%=artwork.owner._id%>"><p><%=artwork.owner.username%></p></a>
             </div>
 
         <%})%>

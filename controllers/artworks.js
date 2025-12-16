@@ -63,9 +63,13 @@ router.post('/', async (req,res) =>{
 router.get('/:artworkId', async (req,res) => {
     try{
         const artwork = await Artwork.findById(req.params.artworkId).populate('comments.owner');
-        res.locals.artwork = artwork;
         
-        res.render('artworks/show.ejs', {timeAgo});
+        res.locals.artwork = artwork;
+        const editComment = req.query.editcomment || null;
+
+            
+        return res.render('artworks/show.ejs', {timeAgo, editComment});
+
     }catch (error){
         console.log(error);
         res.redirect('/');
@@ -160,6 +164,10 @@ router.delete('/:artworkId/comment/:commentId', async (req, res)=>{
         console.log(error)
         res.redirect('/')
     }
+
+})
+
+router.get('/:artworkId/commet/:commentId/edit', async (req, res) =>{
 
 })
 

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore</title>
+</head>
+<body>
+    <h1>Explore the artwork of our community </h1>
+    <%if(allUserArtworks.length === 0){%>
+        <p>There are no artworks yet, be the first to share your artwork</p>
+        <a href="/artworks/new"> Create Artwork</a>
+    <%}else{%>
+        <%allUserArtworks.forEach((artwork)=>{%>
+            <div>
+                <img src="<%=artwork.imageUrl%>">
+                <p><%=artwork.owner.username%></p>
+            </div>
+
+        <%})%>
+    <%}%>
+</body>
+</html>
+

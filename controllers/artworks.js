@@ -27,8 +27,6 @@ function timeAgo(date) {
 }
 
 
-
-
 router.get('/', async (req,res)=>{
     try{
         const allArtworks = await Artwork.find({owner:req.session.user._id});
@@ -46,6 +44,7 @@ router.get('/new', (req,res)=>{
     res.render('artworks/new.ejs',{ART_TYPES});
 })
 
+
 router.post('/', async (req,res) =>{
     try{
         const newArtwork = new Artwork(req.body);
@@ -58,6 +57,13 @@ router.post('/', async (req,res) =>{
         console.log(error);
         res.redirect('/');
     }
+})
+
+router.get('/explore', async (req,res)=>{
+    const allUserArtwork = await Artwork.find().populate('owner');
+    res.locals.allUserArtworks = allUserArtwork;
+    res.render("artworks/explore.ejs");
+
 })
 
 router.get('/:artworkId', async (req,res) => {
@@ -80,7 +86,7 @@ router.get('/:artworkId', async (req,res) => {
 router.delete('/:artworkId', async (req,res) =>{
     try{
         const artwork = await Artwork.findById(req.params.artworkId);
-        
+
         if(artwork.owner.equals(req.session.user._id)){
             await Artwork.deleteOne({_id: artwork._id});
             return res.redirect('/artworks');
@@ -108,7 +114,13 @@ router.get('/:artworkId/edit', async (req, res) =>{
     }catch (error) {
         console.log(error)
         res.redirect('/')
-
+        router.get('/explore', async (req,res)=>{
+            const allUserArtwork = await Artwork.find().populate('owner');
+            res.locals.allUserArtworks = allUserArtwork;
+            res.render("artworks/explore.ejs");
+        
+        })
+        
     }
 })
 
@@ -189,5 +201,8 @@ router.put('/:artworkId/comment/:commentId', async (req, res) =>{
     }
 
 })
+
+
+
 
 module.exports = router;

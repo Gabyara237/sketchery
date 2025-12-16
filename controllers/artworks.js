@@ -4,6 +4,31 @@ const router = express.Router();
 const User = require('../models/user.js');
 const {Artwork, ART_TYPES} = require('../models/artwork.js')
 
+
+function timeAgo(date) {
+  const seconds = Math.floor((Date.now() - new Date(date)) / 1000);
+
+  const intervals = {
+    y: 31536000, // year
+    m: 2592000, // month
+    d: 86400, // day
+    h: 3600, // hour
+    m: 60 // minute
+  };
+
+  for (const unit in intervals) {
+    const value = Math.floor(seconds / intervals[unit]);
+    if (value >= 1) {
+      return `hace ${value} ${unit}${value > 1 ? 's' : ''}`;
+    }
+  }
+
+  return 'Right now';
+}
+
+
+
+
 router.get('/', async (req,res)=>{
     try{
         const allArtworks = await Artwork.find({owner:req.session.user._id});
@@ -37,10 +62,10 @@ router.post('/', async (req,res) =>{
 
 router.get('/:artworkId', async (req,res) => {
     try{
-        const artwork = await Artwork.findById(req.params.artworkId);
+        const artwork = await Artwork.findById(req.params.artworkId).populate('comments.owner');
         res.locals.artwork = artwork;
         res.locals.currentUser = req.session.user;
-        res.render('artworks/show.ejs');
+        res.render('artworks/show.ejs', {timeAgo});
     }catch (error){
         console.log(error);
         res.redirect('/');

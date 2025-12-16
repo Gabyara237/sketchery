@@ -29,6 +29,19 @@
         </form>
         
     </div>
+    <div>
+        <%if(artwork.comments.length==0){%>
+            <p>No comments yet, be the first to comment</p>
+        <%}else{%>
+            <%artwork.comments.forEach((comment)=>{%>
+                <h3><%=comment.owner.username%></h3>
+                <p><%=timeAgo(comment.createdAt)%></p>
+                <p><%=comment.description%></p>
+            <%})%>  
+        <%}%>
+    </div>
+
+
 
 </body>
 </html>

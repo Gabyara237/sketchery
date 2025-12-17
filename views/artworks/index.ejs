@@ -22,6 +22,14 @@
                 <% if(artwork.owner.toString() === currentUser._id.toString()){%>
                     <p><%=artwork.comments.length%> comments</p>
                     <p><%=artwork.likes.length%> likes</p>
+                     <%if(artwork.likes.some((userId) => userId.toString() === user._id.toString())){%>
+                    
+                    <%}else{%>
+                        <form action="/artworks/<%=artwork._id%>/like" method="POST">
+                            <button>Like</button>
+                        </form>
+                    <%}%>
+
                     <a href="/artworks/<%=artwork._id%>/edit">Edit Artwork</a>
                     <form action="/artworks/<%=artwork._id%>?_method=DELETE" method="POST">
                         <button type="submit">Delete Artwork</button>

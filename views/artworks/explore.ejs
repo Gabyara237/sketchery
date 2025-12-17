@@ -42,6 +42,13 @@
         <%artworks.forEach((artwork)=>{%>
             <div>
                 <a href="/users/<%=artwork.owner._id%>"><p><%=artwork.owner.username%></p></a>
+
+                <%if (artwork.owner._id.toString() !== user._id.toString()){%>
+                    <form action="/follows/<%=artwork.owner._id%>" method="POST">
+                        <button>Follow</button>
+                    </form>
+                <%}%>
+
                 <img src="<%=artwork.imageUrl%>">
                 <p><%=artwork.comments.length%> comments</p>
                 <p><%=artwork.likes.length%> likes</p>

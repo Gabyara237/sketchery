@@ -201,8 +201,15 @@ router.put('/:artworkId/comment/:commentId', async (req, res) =>{
 router.post('/:artworkId/like', async (req,res)=>{
     try{
         await Artwork.findByIdAndUpdate(req.params.artworkId, {$addToSet:{likes:req.session.user._id}});
+        const redirect = req.query.redirect;
+        if(redirect === "show"){
+            return res.redirect(`/artworks/${req.params.artworkId}`);    
+        }else if(redirect === "explore"){
+            return res.redirect(`/artworks/explore`);
+        }else if(redirect === "artworks"){
+            return res.redirect(`/artworks`);
+        }
         res.redirect(`/artworks/${req.params.artworkId}`);
-
     }catch(error){
         console.log(error);
         res.redirect('/')
@@ -211,7 +218,18 @@ router.post('/:artworkId/like', async (req,res)=>{
 
 router.delete('/:artworkId/like',async (req,res)=>{
     try{
-        await Artwork.findByIdAndUpdate(req.params.artworkId, {$pull: {likes:req.session.user._id}})
+        await Artwork.findByIdAndUpdate(req.params.artworkId, {$pull: {likes: req.session.user._id}});
+        
+        const redirect = req.query.redirect;
+        if(redirect === "show"){
+           return res.redirect(`/artworks/${req.params.artworkId}`);    
+        }else if(redirect === "explore"){
+            return res.redirect(`/artworks/explore`);
+        }else if(redirect === "artworks"){
+            return res.redirect(`/artworks`);
+        }
+
+        res.redirect(`/artworks/${req.params.artworkId}`);
     }catch (error){
         console.log(error);
         res.redirect('/')

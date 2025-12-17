@@ -61,9 +61,29 @@ router.post('/', async (req,res) =>{
 
 router.get('/explore', async (req,res)=>{
     const allUserArtwork = await Artwork.find().populate('owner');
-    res.locals.allUserArtworks = allUserArtwork;
-    res.render("artworks/explore.ejs");
+    res.locals.artworks = allUserArtwork;
+    res.render("artworks/explore.ejs", {ART_TYPES, search:false});
+    
+})
 
+router.get('/search', async (req,res) =>{
+    try{
+        let types= req.query.type;
+        types = Array.isArray(types)? types : [types]
+        let filter;
+        if(types){
+            filter = {artType: {$in: types}}
+        }else{
+            filter={}
+        }
+        const artworks = await Artwork.find(filter);
+        res.locals.artworks = artworks;
+        res.render('artworks/explore.ejs', {ART_TYPES, types, search: true});
+
+    }catch (error){
+        console.log(error);
+        res.redirect('/');
+    }
 })
 
 router.get('/:artworkId', async (req,res) => {
@@ -219,7 +239,7 @@ router.post('/:artworkId/like', async (req,res)=>{
 router.delete('/:artworkId/like',async (req,res)=>{
     try{
         await Artwork.findByIdAndUpdate(req.params.artworkId, {$pull: {likes: req.session.user._id}});
-        
+
         const redirect = req.query.redirect;
         if(redirect === "show"){
            return res.redirect(`/artworks/${req.params.artworkId}`);    
@@ -235,5 +255,7 @@ router.delete('/:artworkId/like',async (req,res)=>{
         res.redirect('/')
     }
 })
+
+
 
 module.exports = router;

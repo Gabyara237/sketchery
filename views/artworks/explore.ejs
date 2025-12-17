@@ -8,11 +8,38 @@
 <body>
     <%- include('../partials/_navbar.ejs') %>
     <h1>Explore the artwork of our community </h1>
-    <%if(allUserArtworks.length === 0){%>
-        <p>There are no artworks yet, be the first to share your artwork</p>
+    <%if(artworks.length === 0){%>
+        <%if(search){%>
+            <p>There are no artworks that match your filter. Be the first to create one.</p>
+        <%}else{%>
+            <p>There are no artworks yet, be the first to share your artwork.</p>
+        <%}%>
         <a href="/artworks/new"> Create Artwork</a>
+        
     <%}else{%>
-        <%allUserArtworks.forEach((artwork)=>{%>
+
+        <p>Filter artworks by type:</p>
+        <form action="/artworks/search" method="GET">
+            <%ART_TYPES.forEach((type,index)=>{%>
+                
+                <input type="checkbox" id="cbox<%=index+1%>" name="type" value="<%=type%>">
+                <label for="cbox<%=index+1%>"><%=type%></label>
+            <%})%>
+            <button type="submit">Filter</button>
+        </form>
+        <%if(search){%>
+            <p>Filters:</p>
+            <%types.forEach((type)=>{%>
+                <p><%=type%></p>
+            <%})%>
+
+            <form action="/artworks/explore" method="GET">
+                <button> Clear Filter</button>
+            </form>
+
+        <%}%>
+        
+        <%artworks.forEach((artwork)=>{%>
             <div>
                 <a href="/users/<%=artwork.owner._id%>"><p><%=artwork.owner.username%></p></a>
                 <img src="<%=artwork.imageUrl%>">

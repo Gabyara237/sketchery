@@ -15,6 +15,10 @@
     <p><%=artwork.likes.length%> likes</p>
 
     <%if(userHasLiked){%>
+        <p>You've like this artwork</p>            
+        <form action="/artworks/<%=artwork._id%>/like?_method=DELETE" method="POST">
+            <button type="submit">Unlike</button>
+        </form>
                     
     <%}else{%>
         <form action="/artworks/<%=artwork._id%>/like" method="POST">

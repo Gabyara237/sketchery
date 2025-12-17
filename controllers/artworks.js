@@ -209,5 +209,13 @@ router.post('/:artworkId/like', async (req,res)=>{
     }
 })
 
+router.delete('/:artworkId/like',async (req,res)=>{
+    try{
+        await Artwork.findByIdAndUpdate(req.params.artworkId, {$pull: {likes:req.session.user._id}})
+    }catch (error){
+        console.log(error);
+        res.redirect('/')
+    }
+})
 
 module.exports = router;

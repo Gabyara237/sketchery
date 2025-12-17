@@ -23,7 +23,11 @@
                     <p><%=artwork.comments.length%> comments</p>
                     <p><%=artwork.likes.length%> likes</p>
                      <%if(artwork.likes.some((userId) => userId.toString() === user._id.toString())){%>
+                        <p>You've like this artwork</p>
                     
+                        <form action="/artworks/<%=artwork._id%>/like?_method=DELETE" method="POST">
+                            <button type="submit">Unlike</button>
+                        </form>
                     <%}else{%>
                         <form action="/artworks/<%=artwork._id%>/like" method="POST">
                             <button>Like</button>

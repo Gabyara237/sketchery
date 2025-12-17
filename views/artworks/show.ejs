@@ -11,7 +11,16 @@
     <img src ="<%=artwork.imageUrl%>">
     <p><%=artwork.artType%></p>
     <p><%=artwork.description%></p>
+    <p><%=artwork.comments.length%> comments</p>
+    <p><%=artwork.likes.length%> likes</p>
 
+    <%if(userHasLiked){%>
+                    
+    <%}else{%>
+        <form action="/artworks/<%=artwork._id%>/like" method="POST">
+            <button>Like</button>
+        </form>
+    <%}%>
     
     <% if(artwork.owner.toString() === user._id.toString()){%>
         <a href="/artworks/<%=artwork._id%>/edit">Edit Artwork</a>

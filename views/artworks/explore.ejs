@@ -14,8 +14,17 @@
     <%}else{%>
         <%allUserArtworks.forEach((artwork)=>{%>
             <div>
-                <img src="<%=artwork.imageUrl%>">
                 <a href="/users/<%=artwork.owner._id%>"><p><%=artwork.owner.username%></p></a>
+                <img src="<%=artwork.imageUrl%>">
+                <p><%=artwork.comments.length%> comments</p>
+                <p><%=artwork.likes.length%> likes</p>
+                <%if(artwork.likes.some((userId) => userId.toString() === user._id.toString())){%>
+                    
+                <%}else{%>
+                    <form action="/artworks/<%=artwork._id%>/like" method="POST">
+                        <button>Like</button>
+                    </form>
+                <%}%>
             </div>
 
         <%})%>

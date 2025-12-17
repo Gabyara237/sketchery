@@ -19,7 +19,7 @@ function timeAgo(date) {
   for (const unit in intervals) {
     const value = Math.floor(seconds / intervals[unit]);
     if (value >= 1) {
-      return `hace ${value} ${unit}${value > 1 ? 's' : ''}`;
+      return `${value} ${unit}${value > 1 ? 's' : ''} ago`;
     }
   }
 
@@ -73,8 +73,9 @@ router.get('/:artworkId', async (req,res) => {
         res.locals.artwork = artwork;
         const editComment = req.query.editComment || null;
 
-            
-        return res.render('artworks/show.ejs', {timeAgo, editComment});
+        const userHasLiked = artwork.likes.some((userId) => userId.toString() === req.session.user._id.toString());
+
+        return res.render('artworks/show.ejs', {timeAgo, editComment, userHasLiked});
 
     }catch (error){
         console.log(error);
@@ -114,15 +115,10 @@ router.get('/:artworkId/edit', async (req, res) =>{
     }catch (error) {
         console.log(error)
         res.redirect('/')
-        router.get('/explore', async (req,res)=>{
-            const allUserArtwork = await Artwork.find().populate('owner');
-            res.locals.allUserArtworks = allUserArtwork;
-            res.render("artworks/explore.ejs");
-        
-        })
         
     }
 })
+
 
 router.put('/:artworkId', async (req, res) => {
     try{
@@ -202,7 +198,16 @@ router.put('/:artworkId/comment/:commentId', async (req, res) =>{
 
 })
 
+router.post('/:artworkId/like', async (req,res)=>{
+    try{
+        await Artwork.findByIdAndUpdate(req.params.artworkId, {$addToSet:{likes:req.session.user._id}});
+        res.redirect(`/artworks/${req.params.artworkId}`);
 
+    }catch(error){
+        console.log(error);
+        res.redirect('/')
+    }
+})
 
 
 module.exports = router;

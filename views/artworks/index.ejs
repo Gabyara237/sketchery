@@ -20,6 +20,8 @@
             <%artworks.forEach((artwork)=>{%>
                 <li><a href="artworks/<%=artwork._id%>"><%=artwork.title%></a></li>
                 <% if(artwork.owner.toString() === currentUser._id.toString()){%>
+                    <p><%=artwork.comments.length%> comments</p>
+                    <p><%=artwork.likes.length%> likes</p>
                     <a href="/artworks/<%=artwork._id%>/edit">Edit Artwork</a>
                     <form action="/artworks/<%=artwork._id%>?_method=DELETE" method="POST">
                         <button type="submit">Delete Artwork</button>

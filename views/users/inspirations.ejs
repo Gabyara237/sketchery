@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Inspirations</title>
+</head>
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h3>My Inspirations</h3>
+
+    <%if(inspirations.length===0){%>
+        <p> No inspirations yet.</p>
+        <p>Discover new sources of inspiration</p>
+        <a href="/artworks/explore">Explore now</a>
+
+    <%}else{%>
+        <%inspirations.forEach((inspiration)=>{%>
+            <p><%=inspiration.owner.username%></p>
+            <img src="<%=inspiration.imageUrl%>">
+            <p><%=inspiration.likes.length%> Likes</p>
+            <p><%=inspiration.comments.length%> Comments</p>
+        <%})%>
+    <%}%>
+
+    
+</body>
+</html>

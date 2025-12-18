@@ -4,6 +4,19 @@ const router = express.Router();
 const User = require('../models/user.js');
 const {Artwork} = require('../models/artwork.js');
 const Follow = require('../models/follow.js');
+const { populate } = require('dotenv');
+
+
+router.get('/inspirations', async(req,res)=>{
+    try{
+        const user = await User.findById(req.session.user._id).populate({path: 'inspirations', populate:{ path:'owner'}});
+        const inspirations = user.inspirations;
+        res.render('users/inspirations.ejs',{inspirations});
+    }catch (error) {
+        console.log(error);
+        res.redirect('/')
+    }
+})
 
 router.get('/:userId',async(req,res)=>{
     const userProfile = await User.findById(req.params.userId);
@@ -14,6 +27,7 @@ router.get('/:userId',async(req,res)=>{
 
     res.render("users/show.ejs", {allArtworks, userProfile, followers, following});
 })
+
 
 router.post('/:artworkId', async (req,res)=>{
 

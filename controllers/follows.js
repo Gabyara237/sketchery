@@ -1,8 +1,23 @@
 const express = require('express');
 const router = express.Router();
 
-const User = require('../models/user.js');
 const Follow = require('../models/follow.js');
+
+router.get('/', async (req,res)=> {
+    try{
+    
+        const followers = await Follow.find({following: req.session.user._id}).populate('follower');
+        const following = await Follow.find({follower:req.session.user._id}).populate('following')
+        res.render('follows/index.ejs', { followers,following});
+        
+    }catch (error) {
+        console.log(error);
+        res.redirect('/');
+    }
+
+
+})
+
 
 router.post('/:userId',async (req,res)=>{
     try{

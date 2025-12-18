@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Follows</title>
+</head>
+<body>
+
+    <%if(followers.length>0){%>
+        <h3><%=followers.length%> Followers</h3>
+        <ul>
+            <%followers.forEach((follow)=>{%>
+                <li> <%=follow.follower.username%></li>
+            <%})%>
+        </ul>
+
+    <%}else{%>
+        <p>You don't have any followers yet</p>
+    <%}%>
+
+    <%if(following.length>0){%>
+        <h3><%=following.length%> Following</h3>
+        <ul>
+            <%following.forEach((follow)=>{%>
+                <li> <%=follow.following.username%></li>
+            <%})%>
+        </ul>
+
+    <%}else{%>
+        <p>You aren't following anyone yet</p>
+    <%}%>
+
+</body>
+</html>

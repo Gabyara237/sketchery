@@ -8,7 +8,8 @@
 <body>
     <%- include('../partials/_navbar.ejs') %>
     <h3><%=userProfile.username%></h3>
-
+    <h4><%=followers.length%> Followers</h4>
+    <h4><%=following.length%> Following</h4>
     <%if(allArtworks.length===0){%>
         <p>This user has not yet published any artwork.</p>
     <%}else{%>

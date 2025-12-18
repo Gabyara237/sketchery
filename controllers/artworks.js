@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const {Artwork, ART_TYPES} = require('../models/artwork.js');
+const User = require('../models/user.js');
 
 const Follow = require('../models/follow.js');
 
@@ -72,7 +73,10 @@ router.get('/explore', async (req,res)=>{
 
     const followingIds = followings.map(currentFollowing => currentFollowing.following.toString())
 
-    res.render("artworks/explore.ejs", {ART_TYPES, search:false, followingIds});
+    const user = await User.findById(req.session.user._id);
+    const inspirationIds = user.inspirations.map(id => id.toString());
+
+    res.render("artworks/explore.ejs", {ART_TYPES, search:false, followingIds, inspirationIds});
     
 })
 

@@ -54,9 +54,17 @@
                         </form>
                     <%}%>
                 <%}%>
-                <form action="/users/<%=artwork._id%>" method="POST">
-                    <button type="submit">Save</button>
-                </form>
+
+                <%if(inspirationIds.length>0 && inspirationIds.includes((artwork._id).toString())){%>
+                    <form action="/users/<%=artwork._id%>?_method=DELETE" method="POST">
+                        <button type="submit">Unsave</button>
+                    </form>
+
+                <%}else{%>
+                    <form action="/users/<%=artwork._id%>" method="POST">
+                        <button type="submit">Save</button>
+                    </form>
+                <%}%>
 
                 <img src="<%=artwork.imageUrl%>">
                 <p><%=artwork.comments.length%> comments</p>

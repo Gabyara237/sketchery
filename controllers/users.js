@@ -19,12 +19,23 @@ router.post('/:artworkId', async (req,res)=>{
 
     try{
         await User.findByIdAndUpdate(req.session.user._id, {$addToSet:{inspirations: req.params.artworkId}})
-        res.redirect('/artworks');
+        res.redirect('/artworks/explore');
     }catch (error) {
         console.log(error);
         res.redirect('/')
     }
 
+})
+
+router.delete('/:artworkId', async(req,res)=>{
+    try{
+        await User.findByIdAndUpdate(req.session.user._id, {$pull:{inspirations:req.params.artworkId}});
+        res.redirect('/artworks/explore');
+
+    }catch (error){
+        console.log(error);
+        res.redirect('/')
+    }
 })
 
 module.exports = router;

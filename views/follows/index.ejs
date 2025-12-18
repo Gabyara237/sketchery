@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Follows</title>
+    <title>Followers & Following</title>
 </head>
 <body>
-
+    <%- include('../partials/_navbar.ejs') %>
     <%if(followers.length>0){%>
         <h3><%=followers.length%> Followers</h3>
         <ul>

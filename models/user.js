@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema({
     type: String,
   },
 
-  inspiration: [
+  inspirations: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Artwork",

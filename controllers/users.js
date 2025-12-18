@@ -15,5 +15,16 @@ router.get('/:userId',async(req,res)=>{
     res.render("users/show.ejs", {allArtworks, userProfile, followers, following});
 })
 
+router.post('/:artworkId', async (req,res)=>{
+
+    try{
+        await User.findByIdAndUpdate(req.session.user._id, {$addToSet:{inspirations: req.params.artworkId}})
+        res.redirect('/artworks');
+    }catch (error) {
+        console.log(error);
+        res.redirect('/')
+    }
+
+})
 
 module.exports = router;

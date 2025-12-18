@@ -44,9 +44,15 @@
                 <a href="/users/<%=artwork.owner._id%>"><p><%=artwork.owner.username%></p></a>
 
                 <%if (artwork.owner._id.toString() !== user._id.toString()){%>
-                    <form action="/follows/<%=artwork.owner._id%>" method="POST">
-                        <button>Follow</button>
-                    </form>
+                    <%if(followingIds.length>0 && followingIds.includes((artwork.owner._id).toString())){%>
+                        <form action="/follows/<%=artwork.owner._id%>?_method=DELETE" method="POST">
+                            <button>Unfollow</button>
+                        </form>    
+                    <%}else{%>
+                        <form action="/follows/<%=artwork.owner._id%>" method="POST">
+                            <button>Follow</button>
+                        </form>
+                    <%}%>
                 <%}%>
 
                 <img src="<%=artwork.imageUrl%>">

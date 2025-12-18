@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const User = require('../models/user.js');
-const {Artwork, ART_TYPES} = require('../models/artwork.js')
+const {Artwork, ART_TYPES} = require('../models/artwork.js');
+
+const Follow = require('../models/follow.js');
 
 
 function timeAgo(date) {
@@ -60,9 +61,14 @@ router.post('/', async (req,res) =>{
 })
 
 router.get('/explore', async (req,res)=>{
+
     const allUserArtwork = await Artwork.find().populate('owner');
     res.locals.artworks = allUserArtwork;
-    res.render("artworks/explore.ejs", {ART_TYPES, search:false});
+    const followings = await Follow.find({follower: req.session.user._id}).select("following");
+
+    const followingIds = followings.map(currentFollowing => currentFollowing.following.toString())
+
+    res.render("artworks/explore.ejs", {ART_TYPES, search:false, followingIds});
     
 })
 
@@ -78,7 +84,9 @@ router.get('/search', async (req,res) =>{
         }
         const artworks = await Artwork.find(filter);
         res.locals.artworks = artworks;
-        res.render('artworks/explore.ejs', {ART_TYPES, types, search: true});
+        const followings = await Follow.find({follower: req.session.user._id}).select("following");
+        const followingIds = followings.map(currentFollowing => currentFollowing.following.toString())
+        res.render('artworks/explore.ejs', {ART_TYPES, types, search: true, followingIds});
 
     }catch (error){
         console.log(error);

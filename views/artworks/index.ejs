@@ -8,9 +8,12 @@
 <body>
     <%- include('../partials/_navbar.ejs') %>
 
-    <h1>Welcome to My Artworks</h1>
+    <h1><%=user.username%></h1>
+    <h4><%=followers.length%> Followers</h4>
+    <h4><%=following.length%> Following</h4>
     
     <a href="/artworks/new"> Add New Artwork</a>
+
     <%if(artworks.length === 0){%>
     
         <p>You have not created any artwork yet</p>
@@ -19,7 +22,7 @@
         <ul>
             <%artworks.forEach((artwork)=>{%>
                 <li><a href="artworks/<%=artwork._id%>"><%=artwork.title%></a></li>
-                <% if(artwork.owner.toString() === currentUser._id.toString()){%>
+                <% if(artwork.owner.toString() === user._id.toString()){%>
                     <p><%=artwork.comments.length%> comments</p>
                     <p><%=artwork.likes.length%> likes</p>
                      <%if(artwork.likes.some((userId) => userId.toString() === user._id.toString())){%>

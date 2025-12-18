@@ -32,8 +32,12 @@ router.get('/', async (req,res)=>{
     try{
         const allArtworks = await Artwork.find({owner:req.session.user._id});
         res.locals.artworks = allArtworks;
-        res.locals.currentUser = req.session.user;
-        res.render('artworks/index.ejs');
+        
+        const followers = await Follow.find({following: req.session.user._id});
+        const following = await Follow.find({follower: req.session.user._id});
+
+        res.render('artworks/index.ejs',{followers,following});
+
     }catch (error){
         console.log(error);
         res.redirect('/')

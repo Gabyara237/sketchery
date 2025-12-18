@@ -5,10 +5,23 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+
   password: {
     type: String,
     required: true,
   },
+
+  profilePictureUrl:{
+    type: String,
+  },
+
+  inspiration: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Artwork",
+    }
+  ]
+
 });
 
 const User = mongoose.model('User', userSchema);

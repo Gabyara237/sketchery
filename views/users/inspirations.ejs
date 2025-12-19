@@ -8,21 +8,49 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h3>My Inspirations</h3>
+    <div class="main-container">
+        
+        <h3>My Inspirations</h3>
+        <%if(inspirations.length===0){%>
+            <p> No inspirations yet.</p>
+            <p>Discover new sources of inspiration</p>
+            <a href="/artworks/explore">Explore now</a>
+    
+        <%}else{%>
+            <div class="artworks-container">
+                <%inspirations.forEach((inspiration)=>{%>
+                    <div class="card-container">
+                        <div class="actions">
+                            <div>
+                                <p class="a-username"><%=inspiration.owner.username%></p>
+        
+                            </div>
+                            <%if(inspirationIds.length>0 && inspirationIds.includes((inspiration._id).toString())){%>
+                                    <form action="/users/<%=inspiration._id%>?_method=DELETE" method="POST">
+                                        <button class="btn-save" type="submit">Unsave</button>
+                                    </form>
+                
+                            <%}else{%>
+                                <form action="/users/<%=inspiration._id%>" method="POST">
+                                    <button class="btn-save" type="submit">Save</button>
+                                </form>
+                            <%}%>
 
-    <%if(inspirations.length===0){%>
-        <p> No inspirations yet.</p>
-        <p>Discover new sources of inspiration</p>
-        <a href="/artworks/explore">Explore now</a>
+                        </div>
+                        
+                        <img class="img-artwork" src="<%=inspiration.imageUrl%>">
+                        <div class="actions">
+                            <p><%=inspiration.likes.length%> Likes</p>
+                            <p><%=inspiration.comments.length%> Comments</p>
+    
+                        </div>
+                    </div>
+                <%})%>
 
-    <%}else{%>
-        <%inspirations.forEach((inspiration)=>{%>
-            <p><%=inspiration.owner.username%></p>
-            <img src="<%=inspiration.imageUrl%>">
-            <p><%=inspiration.likes.length%> Likes</p>
-            <p><%=inspiration.comments.length%> Comments</p>
-        <%})%>
-    <%}%>
+            </div>
+        <%}%>
+    </div>
+
 
     
 </body>

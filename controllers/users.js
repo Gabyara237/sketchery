@@ -26,7 +26,10 @@ router.get('/:userId',async(req,res)=>{
     const followers = await Follow.find({following:req.session.user._id});
     const following = await Follow.find({follower:req.params.userId});
 
-    res.render("users/show.ejs", {allArtworks, userProfile, followers, following});
+    const user = await User.findById(req.session.user._id).populate({path: 'inspirations', populate:{ path:'owner'}});
+    const inspirationIds = user.inspirations.map(item => item._id.toString());
+
+    res.render("users/show.ejs", {allArtworks, userProfile, followers, following, inspirationIds});
 })
 
 

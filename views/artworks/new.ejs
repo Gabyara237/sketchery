@@ -8,30 +8,40 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>Create new Artwork</h1>
-
-    <form action="/artworks" method="POST">
-
-        <label for="title">Artwork Title:</label>
-        <input name="title" id="title" required>
-
-        <label for="imageUrl">ArtWork Imagen URL:</label>
-        <input name="imageUrl" id="imageUrl" required>
+    <div class="main-container">
+        <div class="edit-artwork-container">
+            <h1>Create new Artwork</h1>
         
-        <label for="artType"> Artwork Type:</label>
-        <select name="artType" id="artType">
-            <%ART_TYPES.forEach((type) =>{%>
-                <option value="<%=type%>"> <%=type%></option>
-            <%})%>
+            <form class="form-create" action="/artworks" method="POST">
+                <div class="form-item">
+                    <label for="title">Artwork Title:</label>
+                    <input class="edit-input" name="title" id="title" required>
+                </div>
+        
+                <div class="form-item">
+                    <label for="imageUrl">ArtWork Imagen URL:</label>
+                    <input class="edit-input" name="imageUrl" id="imageUrl" required>
+                </div>
+                <div class="form-item">
+                    <label for="artType"> Artwork Type:</label>
+                    <select class="edit-input" name="artType" id="artType">
+                        <%ART_TYPES.forEach((type) =>{%>
+                            <option value="<%=type%>"> <%=type%></option>
+                        <%})%>
+            
+                    </select>
+                </div>
+                
+                <div class="form-item">
+                    <label for= "description">ArtWork Description:</label>
+                    <textarea class="textarea2"  name="description" id="description"></textarea>
+                </div>
+                <button class="btn-create" type="submit"> Create new Artwork</button>
+        
+            </form>
+        </div>
 
-        </select>
-
-        <label for= "description">ArtWork Description:</label>
-        <textarea name="description" id="description"></textarea>
-
-        <button type="submit"> Create new Artwork</button>
-
-    </form>
+    </div>
     
 </body>
 </html>

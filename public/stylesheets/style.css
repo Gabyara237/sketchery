@@ -50,14 +50,18 @@
     padding: 0 80px;
     width: 560px;
 }
-.textarea{
+.textarea, .textarea2{
     width: 100%;
     margin-top: 20px;
     min-height: 80px;
     padding: 10px;
     font-size: 14px;
 }
-.form-sign,.form-edit{
+
+.textarea2{
+    margin-top: 5px;
+}
+.form-sign,.form-edit,.form-create{
     display: flex;
     justify-content: center;
     gap: 1rem;
@@ -296,7 +300,7 @@ button{
     gap: 30px;
     align-items: center;
 }
-.btn-crete, .btn-edit{
+.btn-create, .btn-edit{
     background-color: #032e9e;
     font-weight: 400;
     padding: 10px;

@@ -5,7 +5,7 @@
 ![MongoDB](https://img.shields.io/badge/database-MongoDB-47A248?logo=mongodb&logoColor=white)
 ![Express](https://img.shields.io/badge/express-4.18-lightgrey)
 
-**Sketchery** Sketchery is a creative platform where artists can share their artwork, explore new styles, follow other creators, and save pieces that inspire them.
+**Sketchery** is a creative platform where artists can share their artwork, explore new styles, follow other creators, and save pieces that inspire them.
 
 
 

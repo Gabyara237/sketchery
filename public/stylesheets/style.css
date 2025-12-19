@@ -1,5 +1,8 @@
- * {
+@import url('https://fonts.googleapis.com/css2?family=Quintessential&display=swap');
+
+* {
   box-sizing: border-box;
+  font-family: Helvetica;
 }
  body{
     background-color: black;
@@ -78,4 +81,11 @@ input{
 
 .form-container{
     width: 100%;
+}
+
+.name{
+    font-family: "Quintessential", serif;
+    font-size: 4em;
+    font-weight: 600;
+
 }

@@ -8,14 +8,34 @@
 </head>
 <body>
   <%- include('../partials/_navbar.ejs') %>
-  <h1>Sign in</h1>
-  <form action="/auth/sign-in" method="POST">
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required />
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required />
-    <button type="submit">Sign in</button>
-  </form>
-  <p>Don’t you have an account? <a href="/auth/sign-up">Sign up</a></p>
+  <div class="container">
+    <div class="left-side">
+      <img class="img-sign" src="https://i.imgur.com/S1Tejjz.jpeg" alt="Face is covered in colorful paint with a cat and a bird on his head">
+    </div>
+    <div class="right-side">
+
+      <h1>Sketchery</h1>
+      <h2>Sign in</h2>
+      
+      <div class="form-container">  
+        <form class="form-sign" action="/auth/sign-in" method="POST">
+          <div class="form-item">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required />
+          </div>
+
+          <div class="form-item">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required />
+          </div>
+          <button class="btn-sign" type="submit">Sign in</button>
+          
+        </form>
+        <p>Don’t you have an account? <a href="/auth/sign-up">Sign up</a></p>
+        
+      </div>
+    </div>
+
+  </div>
 </body>
 </html>

@@ -1,13 +1,13 @@
-<div class="nav">
-    <a class="nav-item" href="/">Home</a>
+<div class=" <%= user ? 'nav' : 'nav-without-user' %>">
     <%if (user) {%>
+        <a class="nav-item" href="/">Home</a>
         <a class="nav-item" href="/artworks">Profile</a>
         <a class="nav-item" href="/artworks/explore">Explore</a>
         <a class="nav-item" href="/follows">Followers & Following</a>
         <a class="nav-item" href="/users/inspirations">My Inspirations</a>
         <a class="nav-item" href="/auth/sign-out">Sign Out</a>
     <%}else{%>
-        <a class="nav-item" href="/auth/sign-in">Sign In</a>
-        <a class="nav-item" href="/auth/sign-up">Sign Up</a>
+        <a class="nav-item a-nav-without-user" href="/auth/sign-in">Sign In</a>
+        <a class="nav-item a-nav-without-user" href="/auth/sign-up">Sign Up</a>
     <%}%>    
 </div>

@@ -11,11 +11,11 @@ function timeAgo(date) {
   const seconds = Math.floor((Date.now() - new Date(date)) / 1000);
 
   const intervals = {
-    y: 31536000, // year
-    m: 2592000, // month
-    d: 86400, // day
-    h: 3600, // hour
-    m: 60 // minute
+    year: 31536000, // year
+    month: 2592000, // month
+    day: 86400, // day
+    hour: 3600, // hour
+    minutes: 60 // minute
   };
 
   for (const unit in intervals) {

@@ -7,7 +7,36 @@
   <title>Home Page</title>
 </head>
 <body>
-  <%- include('./partials/_navbar.ejs') %>
-  <h1>Welcome to Sketchery </h1>
+  <%if(user){%>
+    <%- include('./partials/_navbar.ejs') %>
+  <%}%>
+  <div class="<%= user ? 'main-container3' : 'main-container2' %>">
+    <div class="flex5-container">
+      <% if (user) { %>
+        <h1 class="name2">Sketchery</h1>
+        <h1>Welcome back, <%= user.username %>! </h1>
+        <p>Explore new artworks, get inspired, and share your creativity with the community.</p>
+        <div class="actions2">
+          <a class="invitation" href="/artworks/new"> Create Artwork</a>
+          <a class="invitation" href="/artworks/explore">Explore now</a>
+
+        </div>
+
+      <% } else { %>
+        <div class="flex5">
+          <h1>Welcome to </h1>
+          <h1 class="name">Sketchery</h1>
+          <p>Create, share, and discover art. </p>
+          <p>Follow your favorite artists and find inspiration every day.</p>
+          <div>
+            <%- include('./partials/_navbar.ejs') %>
+
+          </div>
+        </div>
+      <% } %>
+
+    </div>
+
+  </div>
 </body>
 </html>

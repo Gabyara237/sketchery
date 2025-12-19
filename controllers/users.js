@@ -11,7 +11,8 @@ router.get('/inspirations', async(req,res)=>{
     try{
         const user = await User.findById(req.session.user._id).populate({path: 'inspirations', populate:{ path:'owner'}});
         const inspirations = user.inspirations;
-        res.render('users/inspirations.ejs',{inspirations});
+        const inspirationIds = user.inspirations.map(item => item._id.toString());
+        res.render('users/inspirations.ejs',{inspirations,inspirationIds});
     }catch (error) {
         console.log(error);
         res.redirect('/')

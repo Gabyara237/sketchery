@@ -12,9 +12,11 @@
         
         <h3>My Inspirations</h3>
         <%if(inspirations.length===0){%>
-            <p> No inspirations yet.</p>
-            <p>Discover new sources of inspiration</p>
-            <a href="/artworks/explore">Explore now</a>
+            <div class="no-yet">
+                <p> No inspirations yet.</p>
+                <p>Discover new sources of inspiration</p>
+                <a class="a-no-yet" href="/artworks/explore">Explore now</a>
+            </div>
     
         <%}else{%>
             <div class="artworks-container">

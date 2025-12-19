@@ -22,8 +22,10 @@
         </div>
         
         <%if(artworks.length === 0){%>
-        
-            <p>You have not created any artwork yet</p>
+            <div class="no-yet">
+                <p>You have not created any artwork yet</p>
+                <a class="a-no-yet" href="/artworks/new"> Create Artwork</a>
+            </div>
     
         <%}else{%>
             <div class="flex">

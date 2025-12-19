@@ -12,12 +12,15 @@
 
         <h1>Explore the artwork of our community </h1>
         <%if(artworks.length === 0){%>
-            <%if(search){%>
-                <p>There are no artworks that match your filter. Be the first to create one.</p>
-            <%}else{%>
-                <p>There are no artworks yet, be the first to share your artwork.</p>
-            <%}%>
-            <a href="/artworks/new"> Create Artwork</a>
+            <div class="no-yet">
+                <%if(search){%>
+                    <p>There are no artworks that match your filter. Be the first to create one.</p>
+                <%}else{%>
+                    <p>There are no artworks yet, be the first to share your artwork.</p>
+                <%}%>
+                <a class="a-no-yet" href="/artworks/new"> Create Artwork</a>
+                
+            </div>
             
         <%}else{%>
     

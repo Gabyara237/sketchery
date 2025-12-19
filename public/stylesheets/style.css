@@ -154,7 +154,7 @@ select{
     padding: 10px;
 }
 
-.flex, .flex2{
+.flex, .flex2,.flex3,.flex4{
     display: flex;
     gap:30px;
     align-items: center;
@@ -163,11 +163,14 @@ select{
     align-items: start;
 }
 
-.flex3{
-    display: flex;
+.flex3,.flex4{
     gap: 20px;
     justify-content: center;
     align-items: end;
+}
+
+.flex4{
+    justify-content: space-around;
 }
 .avatar{
     padding: 40px;
@@ -187,7 +190,7 @@ select{
 
 }
 
-.info-artwork-container, .edit-artwork-container {
+.info-artwork-container, .edit-artwork-container,.follow-container{
     margin-top: 40px;
     display: flex;
     flex-direction: column;
@@ -199,6 +202,10 @@ select{
     padding: 30px;
     border-radius: 30px;
     
+}
+.follow-container{
+    width: max-content ;
+    gap: 10px;
 }
 
 .edit-artwork-container{

@@ -8,20 +8,68 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h3><%=userProfile.username%></h3>
-    <h4><%=followers.length%> Followers</h4>
-    <h4><%=following.length%> Following</h4>
-    <%if(allArtworks.length===0){%>
-        <p>This user has not yet published any artwork.</p>
-    <%}else{%>
-        <%allArtworks.forEach((artwork)=>{%>
+    <div class="main-container">
+        <div class="info-user-container">
             <div>
-                <img src="<%=artwork.imageUrl%>">
-                <p><%=artwork.comments.length%> comments</p>
+                <h1 class="avatar"><%= userProfile.username[0].toUpperCase() %></h1>
+                <h3><%=userProfile.username%></h3>
             </div>
+            <div class="flex">
+                <h4><%=followers.length%> Followers</h4>
+                <h4><%=following.length%> Following</h4>
+            </div>
+        </div>
+         <div class="artworks-container">
+             <%if(allArtworks.length===0){%>
+                 <p>This user has not yet published any artwork.</p>
+             <%}else{%>
+                 <%allArtworks.forEach((artwork)=>{%>
+                    <div class="card-container">
+                        <div>
+                            <div class="actions">
+                                <p><%=artwork.title%></p>
+                                <%if(inspirationIds.length>0 && inspirationIds.includes((artwork._id).toString())){%>
+                                    <form action="/users/<%=artwork._id%>?_method=DELETE" method="POST">
+                                        <button class="btn-save" type="submit">Unsave</button>
+                                    </form>
+                
+                                <%}else{%>
+                                    <form action="/users/<%=artwork._id%>" method="POST">
+                                        <button class="btn-save" type="submit">Save</button>
+                                    </form>
+                                <%}%>
+                            </div>
+                            <img class="img-artwork" src="<%=artwork.imageUrl%>">
+                            <div class="actions">
+                                <div class="actions">
+                                    <p><%=artwork.comments.length%> comments</p>
+                                    <p><%=artwork.likes.length%> likes</p>
+                                </div>
+                                <div class="actions">
+                                    <%if(artwork.likes.some((userId) => userId.toString() === user._id.toString())){%>
+                                
+                                        <form action="/artworks/<%=artwork._id%>/like?redirect=artworks&_method=DELETE" method="POST">
+                                            <button class="btn-like" type="submit">Unlike</button>
+                                        </form>
+                                    <%}else{%>
+                                        <form action="/artworks/<%=artwork._id%>/like?redirect=artworks" method="POST">
+                                            <button class="btn-like">Like</button>
+                                        </form>
+                                    <%}%>
 
-        <%})%>
+                                </div>
+                            </div>
 
-    <%}%>
+                        </div>
+
+
+                    </div>
+         
+                 <%})%>
+         
+             <%}%>
+             
+         </div>
+    </div>
 </body>
 </html>

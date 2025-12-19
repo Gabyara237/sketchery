@@ -8,68 +8,90 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h2><%=artwork.title%></h2>
-    <img src ="<%=artwork.imageUrl%>">
-    <p><%=artwork.artType%></p>
-    <p><%=artwork.description%></p>
-    <p><%=artwork.comments.length%> comments</p>
-    <p><%=artwork.likes.length%> likes</p>
-
-    <%if(userHasLiked){%>
-        <p>You've like this artwork</p>            
-        <form action="/artworks/<%=artwork._id%>/like?redirect=show&_method=DELETE" method="POST">
-            <button type="submit">Unlike</button>
-        </form>
+    <div class="main-container">
+        <div class="info-artwork-container">
+            <div class="flex2">
+                <div>
+                    <img class="img-show-artwork" src ="<%=artwork.imageUrl%>">
                     
-    <%}else{%>
-        <form action="/artworks/<%=artwork._id%>/like?redirect=show" method="POST">
-            <button>Like</button>
-        </form>
-    <%}%>
+                </div>
+                <div >
+                    <div>
+                        <h2><%=artwork.title%></h2>
+                        <p class="type"><%=artwork.artType%></p>
+                        <p class="description"><%=artwork.description%></p>
+                        <div class="flex">
+                            <p ><%=artwork.comments.length%> comments</p>
+                            <p><%=artwork.likes.length%> likes</p>
+                        </div>
+                    </div>
+                    <div class="actions2">
+                        <%if(userHasLiked){%>          
+                            <form action="/artworks/<%=artwork._id%>/like?redirect=show&_method=DELETE" method="POST">
+                                <button class="btn-like2" type="submit">Unlike</button>
+                            </form>
+                            
+                        <%}else{%>
+                                <form action="/artworks/<%=artwork._id%>/like?redirect=show" method="POST">
+                                    <button class="btn-like2">Like</button>
+                                </form>
+                        <%}%>
+                                
+                        <% if(artwork.owner.toString() === user._id.toString()){%>
+                            <a class="a-edit2" href="/artworks/<%=artwork._id%>/edit">Edit Artwork</a>
+                            <form action="/artworks/<%=artwork._id%>?_method=DELETE" method="POST">
+                                <button class="btn-delete" type="submit">Delete</button>
+                            </form>
+                        <%}%>
     
-    <% if(artwork.owner.toString() === user._id.toString()){%>
-        <a href="/artworks/<%=artwork._id%>/edit">Edit Artwork</a>
-        <form action="/artworks/<%=artwork._id%>?_method=DELETE" method="POST">
-            <button type="submit">Delete</button>
-        </form>
-    <%}%>
-        
-    <div>
-        <form action="/artworks/<%=artwork._id%>/comment" method="POST">
-            <label for="comment">Share your comment</label>
-            <textarea name="comment" id="comment" required></textarea>
-            <button type="submit">Create comment</button>
+                    </div>
+                </div>
 
-        </form>
-        
-    </div>
-    <div>
-        <%if(artwork.comments.length==0){%>
-            <p>No comments yet, be the first to comment</p>
-        <%}else{%>
-            <%artwork.comments.forEach((comment)=>{%>
-                <h3><%=comment.owner.username%></h3>
-                <p><%=timeAgo(comment.createdAt)%></p>
-                <%if(editComment && editComment === comment._id.toString() && comment.owner._id.toString()=== user._id){%>
-                    <form action="/artworks/<%=artwork._id%>/comment/<%=comment._id%>?_method=PUT" method="POST">
-                        <textarea name="comment" required> <%=comment.description%></textarea>
-                        <button type="submit">Save</button>
+            </div>
+                        
+            <div class="comments-container">
+    
+    
+                <div>
+                    <form class="form-comment" action="/artworks/<%=artwork._id%>/comment" method="POST">
+                            <label for="comment">Share your comment</label>
+                            <div class="flex3">
+                                <textarea class="textarea" name="comment" id="comment" required></textarea>
+                                <button class="btn-crete" type="submit">Create</button>
+                            </div>
                     </form>
-                <%}else{%>
-                    <p><%=comment.description%></p>
-                <%}%>  
-
-                <%if(comment.owner._id.toString() === user._id.toString()){%>
-                    <a href="/artworks/<%=artwork._id%>?editComment=<%=comment._id%>">Edit comment</a>
-                    <form action="/artworks/<%=artwork._id%>/comment/<%=comment._id%>?_method=DELETE" method="POST">
-                        <button type="submit"> Delete</button>
-                    </form>
-                <%}%>
-            <%})%>  
-        <%}%>
+                    
+                </div>
+                <div>
+                    <%if(artwork.comments.length==0){%>
+                        <p>No comments yet, be the first to comment</p>
+                    <%}else{%>
+                        <%artwork.comments.forEach((comment)=>{%>
+                            <h3><%=comment.owner.username%></h3>
+                            <p><%=timeAgo(comment.createdAt)%></p>
+                            <%if(editComment && editComment === comment._id.toString() && comment.owner._id.toString()=== user._id){%>
+                                <form action="/artworks/<%=artwork._id%>/comment/<%=comment._id%>?_method=PUT" method="POST">
+                                    <textarea name="comment" required> <%=comment.description%></textarea>
+                                    <button type="submit">Save</button>
+                                </form>
+                            <%}else{%>
+                                <p><%=comment.description%></p>
+                            <%}%>  
+                                        
+                                <%if(comment.owner._id.toString() === user._id.toString()){%>
+                                    <a href="/artworks/<%=artwork._id%>?editComment=<%=comment._id%>">Edit comment</a>
+                                    <form action="/artworks/<%=artwork._id%>/comment/<%=comment._id%>?_method=DELETE" method="POST">
+                                        <button type="submit"> Delete</button>
+                                    </form>
+                                <%}%>
+                           <%})%>  
+                    <%}%>
+                </div>
+            </div>
+                                    
+                                    
+        </div>
     </div>
-
-
 
 </body>
 </html>

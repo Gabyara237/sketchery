@@ -51,12 +51,21 @@
     padding: 0 80px;
     width: 560px;
 }
-
+.textarea{
+    width: 100%;
+    margin-top: 20px;
+    min-height: 80px;
+}
 .form-sign{
     display: flex;
     justify-content: center;
     gap: 1rem;
     width: 100%;
+    flex-direction: column;
+}
+
+.form-comment{
+    display: flex;
     flex-direction: column;
 }
 
@@ -126,11 +135,37 @@
 .filter-items{
 
 }
+.type{
+    font-weight: 600;
+    background-color: lavender;
+    width: min-content;
+    padding: 10px;
+}
 
-.flex{
+.flex, .flex2{
     display: flex;
     gap:30px;
     align-items: center;
+}
+.flex2{
+    align-items: start;
+}
+
+.flex3{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: end;
+}
+.avatar{
+    padding: 40px;
+    background-color: antiquewhite;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    font-size: 4em;
+    color: #c30000;
+    
 }
 .info-user-container{
     display: flex;
@@ -140,15 +175,18 @@
 
 }
 
-.avatar{
-    padding: 40px;
-    background-color: antiquewhite;
-    border-radius: 100px;
+.info-artwork-container{
+    margin-top: 40px;
     display: flex;
-    justify-content: center;
-    font-size: 4em;
-    color: #c30000;
-
+    flex-direction: column;
+    gap: 30px;
+    background-color: #ffffff;
+    color: black;
+    width: min-content;
+    justify-self: center;
+    padding: 30px;
+    border-radius: 30px;
+    
 }
 
 .artworks-container {
@@ -169,6 +207,10 @@
 }
 
 
+.description{
+    width: 500px;
+}
+
 .card-container:hover{
     transform: scale(1.02);
     background-color: #2e2e2e;
@@ -177,15 +219,26 @@
 .img-artwork{
     width: -webkit-fill-available;
     border-radius: 10px;
+    
 }
 
-.actions{
+.img-show-artwork{
+    width: 350px;
+    border-radius: 10px;
+}
+
+.actions, .actions2{
     display: flex;
     align-items: center;
     gap:10px;
     justify-content: space-between;
 }
+.actions2{
+    justify-content: right;
+    gap: 30px;
+    margin-top: 20px;
 
+}
 
 .a-username{
     text-decoration: none;
@@ -193,12 +246,16 @@
     font-weight: 600;
     
 }
-.a-edit,.a-new-artwork{
+.a-edit,.a-new-artwork, .a-edit2{
     text-decoration: none;
-    color: rgb(12, 12, 195);
+    color: #062e9e;
     background-color: white;
     padding: 4px;
     border-radius: 5px;
+}
+
+.a-edit2{
+    border: #062e9e 2px solid;
 }
 
 .a-new-artwork{
@@ -210,6 +267,7 @@ button{
     border: none;
     padding: 5px;
     border-radius: 5px;
+    font-size: 15px;
 }
 
 .filter{
@@ -226,17 +284,26 @@ button{
     gap: 30px;
     align-items: center;
 }
-
+.btn-crete{
+    background-color: #032e9e;
+    font-weight: 400;
+    padding: 10px;
+    color: #ffffff;
+}
 .btn-save{
     color: #032e9e;
     font-weight: 600;
 }
-
-.btn-like{
+.btn-like, .btn-like2{
     color: #9d2e4c;
     font-weight: 600;
 }
-button:hover, .a-edit:hover, .a-new-artwork:hover{
+
+.btn-like2{
+    border: #9b3450 1px solid;
+}
+
+button:hover, .a-edit:hover, .a-new-artwork:hover, .a-edit2:hover{
     transform: scale(1.1);
 
 }

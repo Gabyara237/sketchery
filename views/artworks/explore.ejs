@@ -82,8 +82,9 @@
                                 <%}%>
                             </div>
                         </div>
+
         
-                        <img class="img-artwork" src="<%=artwork.imageUrl%>" alt="<%=artwork.description%>">
+                        <a href="/artworks/<%=artwork._id%>"><img class="img-artwork" src="<%=artwork.imageUrl%>" alt="<%=artwork.description%>"></a>
                         <div class="actions">
                             <div class="actions">
                                 <p><%=artwork.comments.length%> comments</p>

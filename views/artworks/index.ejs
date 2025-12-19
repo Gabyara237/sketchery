@@ -8,43 +8,73 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
+    <div class="main-container">
+        <div class="info-user-container">
 
-    <h1><%=user.username%></h1>
-    <h4><%=followers.length%> Followers</h4>
-    <h4><%=following.length%> Following</h4>
+            <div>
+                <h1 class="avatar"><%= user.username[0].toUpperCase() %></h1>
+                <h1><%=user.username%></h1>
+            </div>
+            <div class="flex">
+                <h4><%=followers.length%> Followers</h4>
+                <h4><%=following.length%> Following</h4>
+            </div>
+        </div>
+        
+        <%if(artworks.length === 0){%>
+        
+            <p>You have not created any artwork yet</p>
     
-    <a href="/artworks/new"> Add New Artwork</a>
+        <%}else{%>
+            <div class="flex">
+                <h2> My Artworks </h2>
+                <a class="a-new-artwork" href="/artworks/new"> Add New Artwork</a>
+            </div>
+            
+            <div class="artworks-container">
+                
+                <%artworks.forEach((artwork)=>{%>
+                    <div class="card-container">
+                        <div class="actions">
+                            <div>
+                                <p><%=artwork.title%></p>
+                            </div>
+                            
+                            <div>
+                                <%if(artwork.likes.some((userId) => userId.toString() === user._id.toString())){%>
+                               
+                                   <form action="/artworks/<%=artwork._id%>/like?redirect=artworks&_method=DELETE" method="POST">
+                                       <button class="btn-like" type="submit">Unlike</button>
+                                   </form>
+                               <%}else{%>
+                                   <form action="/artworks/<%=artwork._id%>/like?redirect=artworks" method="POST">
+                                       <button class="btn-like">Like</button>
+                                   </form>
+                               <%}%>
 
-    <%if(artworks.length === 0){%>
-    
-        <p>You have not created any artwork yet</p>
+                            </div>
 
-    <%}else{%>
-        <ul>
-            <%artworks.forEach((artwork)=>{%>
-                <li><a href="artworks/<%=artwork._id%>"><%=artwork.title%></a></li>
-                <% if(artwork.owner.toString() === user._id.toString()){%>
-                    <p><%=artwork.comments.length%> comments</p>
-                    <p><%=artwork.likes.length%> likes</p>
-                     <%if(artwork.likes.some((userId) => userId.toString() === user._id.toString())){%>
-                        <p>You've like this artwork</p>
-                    
-                        <form action="/artworks/<%=artwork._id%>/like?redirect=artworks&_method=DELETE" method="POST">
-                            <button type="submit">Unlike</button>
-                        </form>
-                    <%}else{%>
-                        <form action="/artworks/<%=artwork._id%>/like?redirect=artworks" method="POST">
-                            <button>Like</button>
-                        </form>
-                    <%}%>
+                        </div>
+                        <a href="artworks/<%=artwork._id%>"><img class="img-artwork" src="<%=artwork.imageUrl%>"></a>
+                        <% if(artwork.owner.toString() === user._id.toString()){%>
+                            <div class="actions">
+                                <p><%=artwork.comments.length%> comments</p>
+                                <p><%=artwork.likes.length%> likes</p>
+                                <div class="actions">
+                                    <a class="a-edit" href="/artworks/<%=artwork._id%>/edit">Edit </a>
+                                    <form action="/artworks/<%=artwork._id%>?_method=DELETE" method="POST">
+                                        <button class="btn-delete" type="submit">Delete</button>
+                                    </form>
 
-                    <a href="/artworks/<%=artwork._id%>/edit">Edit Artwork</a>
-                    <form action="/artworks/<%=artwork._id%>?_method=DELETE" method="POST">
-                        <button type="submit">Delete Artwork</button>
-                    </form>
-                <%}%>
-            <%})%>
-        </ul>
-    <%}%>
+                                </div>
+                            </div>    
+
+                        <%}%>
+                    </div>
+                <%})%>
+            </div>
+            
+        <%}%>
+    </div>
 </body>
 </html>

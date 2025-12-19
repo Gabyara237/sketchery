@@ -8,84 +8,107 @@
 </head>
 <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>Explore the artwork of our community </h1>
-    <%if(artworks.length === 0){%>
-        <%if(search){%>
-            <p>There are no artworks that match your filter. Be the first to create one.</p>
+    <div class="main-container">
+
+        <h1>Explore the artwork of our community </h1>
+        <%if(artworks.length === 0){%>
+            <%if(search){%>
+                <p>There are no artworks that match your filter. Be the first to create one.</p>
+            <%}else{%>
+                <p>There are no artworks yet, be the first to share your artwork.</p>
+            <%}%>
+            <a href="/artworks/new"> Create Artwork</a>
+            
         <%}else{%>
-            <p>There are no artworks yet, be the first to share your artwork.</p>
-        <%}%>
-        <a href="/artworks/new"> Create Artwork</a>
-        
-    <%}else{%>
-
-        <p>Filter artworks by type:</p>
-        <form action="/artworks/search" method="GET">
-            <%ART_TYPES.forEach((type,index)=>{%>
-                
-                <input type="checkbox" id="cbox<%=index+1%>" name="type" value="<%=type%>">
-                <label for="cbox<%=index+1%>"><%=type%></label>
-            <%})%>
-            <button type="submit">Filter</button>
-        </form>
-        <%if(search){%>
-            <p>Filters:</p>
-            <%types.forEach((type)=>{%>
-                <p><%=type%></p>
-            <%})%>
-
-            <form action="/artworks/explore" method="GET">
-                <button> Clear Filter</button>
+    
+            <p>Filter artworks by type:</p>
+            <form class="filter-form" action="/artworks/search" method="GET">
+                <%ART_TYPES.forEach((type,index)=>{%>
+                    <div class="filter-items">
+                        <input type="checkbox" id="cbox<%=index+1%>" name="type" value="<%=type%>">
+                        <label for="cbox<%=index+1%>"><%=type%></label>
+                    </div>
+                <%})%>
+                <button type="submit">Filter</button>
             </form>
-
-        <%}%>
+            <%if(search){%>
+                <p>Filters:</p>
+                <div class="filters">
+                    <%types.forEach((type)=>{%>
+                        <p class="filter"><%=type%></p>
+                    <%})%>
         
-        <%artworks.forEach((artwork)=>{%>
-            <div>
-                <a href="/users/<%=artwork.owner._id%>"><p><%=artwork.owner.username%></p></a>
-
-                <%if (artwork.owner._id.toString() !== user._id.toString()){%>
-                    <%if(followingIds.length>0 && followingIds.includes((artwork.owner._id).toString())){%>
-                        <form action="/follows/<%=artwork.owner._id%>?_method=DELETE" method="POST">
-                            <button>Unfollow</button>
-                        </form>    
-                    <%}else{%>
-                        <form action="/follows/<%=artwork.owner._id%>" method="POST">
-                            <button>Follow</button>
-                        </form>
-                    <%}%>
-                <%}%>
-
-                <%if(inspirationIds.length>0 && inspirationIds.includes((artwork._id).toString())){%>
-                    <form action="/users/<%=artwork._id%>?_method=DELETE" method="POST">
-                        <button type="submit">Unsave</button>
+                    <form action="/artworks/explore" method="GET">
+                        <button> Clear Filter</button>
                     </form>
 
-                <%}else{%>
-                    <form action="/users/<%=artwork._id%>" method="POST">
-                        <button type="submit">Save</button>
-                    </form>
-                <%}%>
+                </div>
+    
+            <%}%>
+            
+            <div class="artworks-container">
 
-                <img src="<%=artwork.imageUrl%>">
-                <p><%=artwork.comments.length%> comments</p>
-                <p><%=artwork.likes.length%> likes</p>
-                <%if(artwork.likes.some((userId) => userId.toString() === user._id.toString())){%>
-                    <p>You've like this artwork</p>
-                    
-                    <form action="/artworks/<%=artwork._id%>/like?redirect=explore&_method=DELETE" method="POST">
-                        <button type="submit">Unlike</button>
-                    </form>
-                    
-                <%}else{%>
-                    <form action="/artworks/<%=artwork._id%>/like?redirect=explore" method="POST">
-                        <button>Like</button>
-                    </form>
-                <%}%>
+                <%artworks.forEach((artwork)=>{%>
+                    <div class="card-container">
+                        <div class="actions">
+                            <div>
+                                <a class="a-username" href="/users/<%=artwork.owner._id%>"><p><%=artwork.owner.username%></p></a>
+                            </div>
+                            <div class="actions">
+                                <%if (artwork.owner._id.toString() !== user._id.toString()){%>
+                                    <%if(followingIds.length>0 && followingIds.includes((artwork.owner._id).toString())){%>
+                                        <form action="/follows/<%=artwork.owner._id%>?_method=DELETE" method="POST">
+                                            <button>Unfollow</button>
+                                        </form>    
+                                    <%}else{%>
+                                        <form action="/follows/<%=artwork.owner._id%>" method="POST">
+                                            <button>Follow</button>
+                                        </form>
+                                    <%}%>
+                                <%}%>
+                
+                                <%if(inspirationIds.length>0 && inspirationIds.includes((artwork._id).toString())){%>
+                                    <form action="/users/<%=artwork._id%>?_method=DELETE" method="POST">
+                                        <button class="btn-save" type="submit">Unsave</button>
+                                    </form>
+                
+                                <%}else{%>
+                                    <form action="/users/<%=artwork._id%>" method="POST">
+                                        <button class="btn-save" type="submit">Save</button>
+                                    </form>
+                                <%}%>
+                            </div>
+                        </div>
+        
+                        <img class="img-artwork" src="<%=artwork.imageUrl%>">
+                        <div class="actions">
+                            <div class="actions">
+                                <p><%=artwork.comments.length%> comments</p>
+                                <p><%=artwork.likes.length%> likes</p>
+
+                            </div>
+                            <div >
+                                <%if(artwork.likes.some((userId) => userId.toString() === user._id.toString())){%>
+                                    
+                                    <form action="/artworks/<%=artwork._id%>/like?redirect=explore&_method=DELETE" method="POST">
+                                        <button class="btn-like" type="submit">Unlike</button>
+                                    </form>
+                                    
+                                <%}else{%>
+                                    <form action="/artworks/<%=artwork._id%>/like?redirect=explore" method="POST">
+                                        <button class="btn-like">Like</button>
+                                    </form>
+                                <%}%>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+        
+                <%})%>
             </div>
-
-        <%})%>
-    <%}%>
+        <%}%>
+    </div>
 </body>
 </html>
 

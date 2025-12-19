@@ -10,7 +10,6 @@
     margin: 0;
  }
  
-
  .container{
     display: flex;
     height: 100vh;
@@ -55,8 +54,10 @@
     width: 100%;
     margin-top: 20px;
     min-height: 80px;
+    padding: 10px;
+    font-size: 14px;
 }
-.form-sign{
+.form-sign,.form-edit{
     display: flex;
     justify-content: center;
     gap: 1rem;
@@ -69,7 +70,17 @@
     flex-direction: column;
 }
 
-.sign-input{
+.form-container{
+    width: 100%;
+}
+input{
+    font-size: 15px;
+}
+
+select{
+    font-size: 15px;
+}
+.sign-input, .edit-input{
     padding: 10px;
     width: 100%;
     margin-top: 5px;
@@ -89,9 +100,6 @@
     border-radius: 5px;
 }
 
-.form-container{
-    width: 100%;
-}
 
 .name{
     font-family: "Quintessential", serif;
@@ -175,7 +183,7 @@
 
 }
 
-.info-artwork-container{
+.info-artwork-container, .edit-artwork-container {
     margin-top: 40px;
     display: flex;
     flex-direction: column;
@@ -187,6 +195,10 @@
     padding: 30px;
     border-radius: 30px;
     
+}
+
+.edit-artwork-container{
+    width: max-content;
 }
 
 .artworks-container {
@@ -284,7 +296,7 @@ button{
     gap: 30px;
     align-items: center;
 }
-.btn-crete{
+.btn-crete, .btn-edit{
     background-color: #032e9e;
     font-weight: 400;
     padding: 10px;
@@ -305,8 +317,12 @@ button{
 
 button:hover, .a-edit:hover, .a-new-artwork:hover, .a-edit2:hover{
     transform: scale(1.1);
-
 }
+
+.btn-edit:hover{
+    transform: scale(1.02);
+}
+
 .btn-delete{
     background-color: #c30000;
     color: white;

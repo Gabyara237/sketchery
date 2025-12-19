@@ -57,7 +57,7 @@
                             </div>
 
                         </div>
-                        <a href="artworks/<%=artwork._id%>"><img class="img-artwork" src="<%=artwork.imageUrl%>"></a>
+                        <a href="artworks/<%=artwork._id%>"><img class="img-artwork" src="<%=artwork.imageUrl%>" alt="<%=artwork.description%>"></a>
                         <% if(artwork.owner.toString() === user._id.toString()){%>
                             <div class="actions">
                                 <p><%=artwork.comments.length%> comments</p>

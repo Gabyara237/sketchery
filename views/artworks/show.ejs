@@ -67,24 +67,35 @@
                         <p>No comments yet, be the first to comment</p>
                     <%}else{%>
                         <%artwork.comments.forEach((comment)=>{%>
-                            <h3><%=comment.owner.username%></h3>
-                            <p><%=timeAgo(comment.createdAt)%></p>
-                            <%if(editComment && editComment === comment._id.toString() && comment.owner._id.toString()=== user._id){%>
-                                <form action="/artworks/<%=artwork._id%>/comment/<%=comment._id%>?_method=PUT" method="POST">
-                                    <textarea name="comment" required> <%=comment.description%></textarea>
-                                    <button type="submit">Save</button>
-                                </form>
-                            <%}else{%>
-                                <p><%=comment.description%></p>
-                            <%}%>  
-                                        
-                                <%if(comment.owner._id.toString() === user._id.toString()){%>
-                                    <a href="/artworks/<%=artwork._id%>?editComment=<%=comment._id%>">Edit comment</a>
-                                    <form action="/artworks/<%=artwork._id%>/comment/<%=comment._id%>?_method=DELETE" method="POST">
-                                        <button type="submit"> Delete</button>
-                                    </form>
-                                <%}%>
-                           <%})%>  
+                            <div class="comment-container">
+                                <div class="actions">
+                                    <h3><%=comment.owner.username%></h3>
+                                    <p><%=timeAgo(comment.createdAt)%></p>
+                                </div>
+                                <div class="actions">
+                                    
+                                    <%if(editComment && editComment === comment._id.toString() && comment.owner._id.toString()=== user._id){%>
+                                        <form action="/artworks/<%=artwork._id%>/comment/<%=comment._id%>?_method=PUT" method="POST">
+                                            <textarea name="comment" required> <%=comment.description%></textarea>
+                                            <button type="submit">Save</button>
+                                        </form>
+                                    <%}else{%>
+                                        <p><%=comment.description%></p>
+                                    <%}%>  
+                                                
+                                        <%if(comment.owner._id.toString() === user._id.toString()){%>
+                                            <div class="actions2">
+                                                <a href="/artworks/<%=artwork._id%>?editComment=<%=comment._id%>">Edit comment</a>
+                                                <form action="/artworks/<%=artwork._id%>/comment/<%=comment._id%>?_method=DELETE" method="POST">
+                                                    <button class="btn-delete" type="submit"> Delete</button>
+                                                </form>
+
+                                            </div>
+                                        <%}%>
+                                    </div>
+                                </div>
+                        <%})%>  
+                                
                     <%}%>
                 </div>
             </div>

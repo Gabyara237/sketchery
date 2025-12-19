@@ -15,7 +15,7 @@ function timeAgo(date) {
     month: 2592000, // month
     day: 86400, // day
     hour: 3600, // hour
-    minutes: 60 // minute
+    minute: 60 // minute
   };
 
   for (const unit in intervals) {

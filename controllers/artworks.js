@@ -90,11 +90,13 @@ router.get('/search', async (req,res) =>{
         }else{
             filter={}
         }
-        const artworks = await Artwork.find(filter);
+        const artworks = await Artwork.find(filter).populate('owner');
         res.locals.artworks = artworks;
         const followings = await Follow.find({follower: req.session.user._id}).select("following");
         const followingIds = followings.map(currentFollowing => currentFollowing.following.toString())
-        res.render('artworks/explore.ejs', {ART_TYPES, types, search: true, followingIds});
+        const user = await User.findById(req.session.user._id);
+        const inspirationIds = user.inspirations.map(id => id.toString());
+        res.render('artworks/explore.ejs', {ART_TYPES, types, search: true, followingIds, inspirationIds});
 
     }catch (error){
         console.log(error);
